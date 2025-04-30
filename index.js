@@ -278,25 +278,35 @@ async function run() {
     });
     // Search API
     app.get("/search", async (req, res) => {
-      try {
-        const { query, category } = req.query;
-        let filter = {};
-
-        if (category) {
-          filter.category = category;
-        }
-        if (query) {
-          filter.$or = [
-            { name: { $regex: query, $options: "i" } },
-            { description: { $regex: query, $options: "i" } },
-          ];
-        }
-
-        const products = await productCollection.find(filter).toArray();
-        res.json(products);
-      } catch (error) {
-        res.status(500).json({ message: "Server Error", error });
-      }
+      const search = req.query.search || "";
+    
+      const productResults = await productCollection.find({
+        name: { $regex: search, $options: "i" }
+      }).toArray();
+    
+      const fashionResults = await fashionCollection.find({
+        name: { $regex: search, $options: "i" }
+      }).toArray();
+      const electronicResults = await electronicsCollection.find({
+        name: { $regex: search, $options: "i" }
+      }).toArray();
+    
+      const homedecorResults = await homeDecorCollection.find({
+        name: { $regex: search, $options: "i" }
+      }).toArray();
+      const toyResults = await toyCollection.find({
+        name: { $regex: search, $options: "i" }
+      }).toArray();
+      const bookResults = await booksCollection.find({
+        name: { $regex: search, $options: "i" }
+      }).toArray();
+      const makeupResults = await makeupCollection.find({
+        name: { $regex: search, $options: "i" }
+      }).toArray();
+    
+    
+      const allResults = [...productResults, ...fashionResults, ...electronicResults, ...homedecorResults, ...toyResults, ...bookResults, ...makeupResults];
+      res.send(allResults);
     });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
