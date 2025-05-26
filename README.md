@@ -1,7 +1,7 @@
 #  E-Commerce Backend (with SSLCommerz Payment Integration)
 
-This is the server-side of an E-Commerce web application. The backend manages product data, user carts, category-wise filtering, discounts, orders, and online payments through SSLCommerz.
-
+This is the server-side of an **"Shopfront"** web application. The backend manages product data, user carts, category-wise filtering, discounts, orders, and online payments through SSLCommerz.
+##Client-Side Repository: https://github.com/tahminaakterbristy/Shopfront-Client
 
 
 ##  Features
